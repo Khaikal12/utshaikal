@@ -18,17 +18,11 @@ use App\Http\Controllers\MahasiswaController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::get('/mahasiswa', [MahasiswaController::class, 'index']);  // Mendapatkan semua mahasiswa
-Route::post('/mahasiswa', [MahasiswaController::class, 'store']);  // Menambahkan mahasiswa baru
-Route::get('/mahasiswa/{nim}', [MahasiswaController::class, 'show']);  // Mendapatkan mahasiswa berdasarkan NIM
-Route::put('/mahasiswa/{nim}', [MahasiswaController::class, 'update']);  // Mengupdate mahasiswa
-Route::delete('/mahasiswa/{nim}', [MahasiswaController::class, 'destroy']);  // Menghapus mahasiswa
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/mahasiswa', [MahasiswaController::class, 'index']);  // Mendapatkan semua mahasiswa
-    Route::post('/mahasiswa', [MahasiswaController::class, 'store']);  // Menambahkan mahasiswa baru
-    Route::get('/mahasiswa/{nim}', [MahasiswaController::class, 'show']);  // Mendapatkan mahasiswa berdasarkan NIM
-    Route::put('/mahasiswa/{nim}', [MahasiswaController::class, 'update']);  // Mengupdate mahasiswa
-    Route::delete('/mahasiswa/{nim}', [MahasiswaController::class, 'destroy']);  // Menghapus mahasiswa
+Route::prefix('/mahasiswa')->group(function () {
+    Route::get('', [MahasiswaController::class, 'index']);
+    Route::post('', [MahasiswaController::class, 'create']);
+    Route::get('/{id}', [MahasiswaController::class, 'detail']);
+    Route::put('/{id}', [MahasiswaController::class, 'update']);
+    Route::patch('/{id}', [MahasiswaController::class, 'patch']);
+    Route::delete('/{id}', [MahasiswaController::class, 'delete']);
 });
